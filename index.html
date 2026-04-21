@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>My Blog</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<h1>My Blog</h1>
+
+<input id="search" placeholder="Search...">
+
+<div id="posts"></div>
+
+<script>
+fetch("data/posts.json")
+.then(r => r.json())
+.then(data => {
+  const container = document.getElementById("posts");
+
+  function render(list){
+    container.innerHTML = list.map(p => `
+      <div class="card">
+        <h3>${p.title}</h3>
+        <p>${p.category}</p>
+        <a href="post.html?slug=${p.slug}">Read More</a>
+      </div>
+    `).join("");
+  }
+
+  render(data);
+
+  document.getElementById("search").oninput = (e) => {
+    const v = e.target.value.toLowerCase();
+    render(data.filter(p =>
+      p.title.toLowerCase().includes(v) ||
+      p.tags.join(",").includes(v)
+    ));
+  };
+});
+</script>
+
+</body>
+</html>

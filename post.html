@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Post</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div id="content"></div>
+
+<script>
+const slug = new URLSearchParams(location.search).get("slug");
+
+fetch("data/posts.json")
+.then(r => r.json())
+.then(data => {
+  const post = data.find(p => p.slug === slug);
+
+  document.getElementById("content").innerHTML = `
+    <h1>${post.title}</h1>
+    <p>${post.category}</p>
+    <div>${post.content}</div>
+  `;
+});
+</script>
+
+</body>
+</html>

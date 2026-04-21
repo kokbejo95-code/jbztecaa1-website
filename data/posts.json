@@ -1,0 +1,9 @@
+[
+  {
+    "title": "First Post",
+    "slug": "first-post",
+    "category": "general",
+    "tags": ["news"],
+    "content": "Hello world"
+  }
+]
